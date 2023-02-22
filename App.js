@@ -6,7 +6,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>
         This is about to be the most AWESOMEST Weather App in the world! At
-        least almost the most awesomest.
+        least almost the most awesomest. Check Check
       </Text>
       <StatusBar style="auto" />
     </View>
