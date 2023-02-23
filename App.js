@@ -18,7 +18,7 @@ export default function App() {
       });
   }, []);
 
-  console.log(data);
+  console.log({ data });
 
   return (
     <View style={styles.container}>
@@ -26,6 +26,7 @@ export default function App() {
         This is about to be the most AWESOMEST Weather App in the world! At
         least almost the most awesomest. Check Check
       </Text>
+      <Text style={{ color: "red" }}>{data.type}</Text>
       <StatusBar style="auto" />
     </View>
   );
