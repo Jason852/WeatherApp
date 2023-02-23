@@ -1,7 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { useState, useEffect } from "react";
 
 export default function App() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    fetch("https://api.weather.gov/gridpoints/LWX/97,71/forecast")
+      .then((res) => {
+        if (res.ok) {
+          return res;
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
+  console.log(data);
+
   return (
     <View style={styles.container}>
       <Text>
