@@ -6,6 +6,7 @@ import Colors from "../constants/colors";
 
 export default function HomeScreen() {
   const [data, setData] = useState(null);
+  const [backgroundColor, setBackgroundColor] = useState(null);
 
   useEffect(() => {
     fetch("https://api.weather.gov/gridpoints/LWX/97,71/forecast")
@@ -25,6 +26,12 @@ export default function HomeScreen() {
     const periods = data.properties.periods;
     const currentData = periods[0];
     console.log(currentData.isDaytime);
+
+    // if (currentData.isDaytime === "true") {
+    //   setBackgroundColor(Colors.backgroundBlue);
+    // } else {
+    //   setBackgroundColor(Colors.darkBlue);
+    // }
   }
 
   return (
