@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
-import { LinearGradient } from "expo-linear-gradient";
+
+import Colors from "../constants/colors";
 
 export default function HomeScreen() {
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     fetch("https://api.weather.gov/gridpoints/LWX/97,71/forecast")
@@ -23,22 +24,20 @@ export default function HomeScreen() {
   if (data) {
     const periods = data.properties.periods;
     const currentData = periods[0];
-    console.log(currentData);
+    console.log(currentData.isDaytime);
   }
 
   return (
     <>
       {data ? (
-        <LinearGradient colors={["#3389F1", "#fff"]} styles={{ flex: 1 }}>
-          <View style={styles.container}>
-            <Text>
-              This is about to be the most AWESOMEST Weather App in the world!
-              At least almost the most awesomest. Check Check
-            </Text>
-            <Text style={{ color: "red" }}>{data.properties.updated}</Text>
-            <StatusBar style="auto" />
-          </View>
-        </LinearGradient>
+        <View style={styles.container}>
+          <Text>
+            This is about to be the most AWESOMEST Weather App in the world! At
+            least almost the most awesomest. Check Check
+          </Text>
+          <Text style={{ color: "red" }}>{data.properties.updated}</Text>
+          <StatusBar style="auto" />
+        </View>
       ) : (
         <ActivityIndicator />
       )}
@@ -48,8 +47,9 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //backgroundColor: "#fff",
+    flex: 1,
+    backgroundColor: Colors.backgroundBlue,
+    // *!*!*!*!* currentData.isDaytime === "true" ? Colors.backgroundBlue : Colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
