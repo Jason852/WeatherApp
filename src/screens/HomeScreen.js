@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Image } from "react-native";
 import { useState, useEffect } from "react";
 
 import Colors from "../constants/colors";
@@ -25,7 +25,8 @@ export default function HomeScreen() {
   if (data) {
     const periods = data.properties.periods;
     const currentData = periods[0];
-    console.log(currentData.isDaytime);
+
+    console.log(currentData);
 
     // if (currentData.isDaytime === "true") {
     //   setBackgroundColor(Colors.backgroundBlue);
