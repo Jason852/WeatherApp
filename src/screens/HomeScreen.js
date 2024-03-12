@@ -51,11 +51,8 @@ export default function HomeScreen() {
       return;
     }
 
-    const lat = location.coords.latitude;
-    const lon = location.coords.longitude;
-
     const results = await fetch(
-      `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_KEY}&units=imperial`
+      `${BASE_URL}/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
     //console.log(JSON.stringify(data, null, 2));
@@ -68,12 +65,10 @@ export default function HomeScreen() {
     if (!location) {
       return;
     }
-    const lat = location.coords.latitude;
-    const lon = location.coords.longitude;
 
     const numberOfDays = 5;
     const results = await fetch(
-      `${BASE_URL}/forecast/daily?lat=${lat}&lon=${lon}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
+      `${BASE_URL}/forecast/daily?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
     console.log(JSON.stringify(data, null, 2));
