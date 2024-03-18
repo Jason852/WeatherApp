@@ -60,15 +60,13 @@ export default function HomeScreen() {
   };
 
   const fetchForecast = async () => {
-    // https://api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
-
     if (!location) {
       return;
     }
 
     const numberOfDays = 5;
     const results = await fetch(
-      `${BASE_URL}/forecast/daily?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
+      `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
     console.log(JSON.stringify(data, null, 2));
