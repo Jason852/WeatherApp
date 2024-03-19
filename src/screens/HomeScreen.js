@@ -1,4 +1,10 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 
 import * as Location from "expo-location";
@@ -73,6 +79,8 @@ export default function HomeScreen() {
     setForecast(data);
   };
 
+  //console.log(forecast);
+
   if (!weather) {
     return <ActivityIndicator />;
   }
@@ -81,6 +89,18 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={styles.location}>{weather.name}</Text>
       <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
+      <View style={styles.forecastContainer}>
+        <FlatList
+          data={forecast}
+          horizontal
+          renderItem={({ item }) => (
+            <View style={styles.forecastContainer}>
+              <Text style={styles.forecastText}>{item.main}</Text>
+            </View>
+          )}
+          //keyExtractor={(item) => item.id}
+        />
+      </View>
     </View>
   );
 }
@@ -101,5 +121,11 @@ const styles = StyleSheet.create({
     fontSize: 120,
     fontWeight: "bold",
     color: "grey",
+  },
+  forecastText: {
+    color: "black",
+  },
+  forecastContainer: {
+    height: 100,
   },
 });
