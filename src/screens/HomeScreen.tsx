@@ -8,6 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 
 import * as Location from "expo-location";
+import ForecastItem from "../components/ForecastItem";
 
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
@@ -28,7 +29,7 @@ type Weather = {
   main: MainWeather,
 };
 
-type WeatherForecast = {
+export type WeatherForecast = {
   main: MainWeather,
   dt: number,
 
@@ -78,7 +79,7 @@ export default function HomeScreen() {
       return;
     }
 
-    const numberOfDays = 5;
+    const numberOfDays = 40;
     const results = await fetch(
       `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
@@ -99,12 +100,8 @@ export default function HomeScreen() {
         <FlatList
           data={forecast}
           horizontal
-          renderItem={({ item }) => (
-            <View style={styles.forecastContainer}>
-              <Text style={styles.forecastText}>{Math.floor(item.main.temp)}˚F</Text>
-            </View>
-          )}
-          //keyExtractor={(item) => item.id}
+          contentContainerStyle={{gap: 10, backgroundColor: "blue", height: 100}}
+          renderItem={({ item }) => <ForecastItem forecast={item} />}          
         />
       </View>
     </View>
@@ -115,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
   },
   location: {
@@ -128,11 +125,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "grey",
   },
-  forecastText: {
-    color: "black",
-  },
   forecastContainer: {
-    height: 50,
-    marginRight: 5,
+    //height: 40,
+    marginHorizontal: 10,
   },
 });
