@@ -12,25 +12,33 @@ import * as Location from "expo-location";
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
 
-// type Weather = {
-//   name: string,
-//   main: {
-//     temp: number,
-//     feels_like: number,
-//     temp_min: number,
-//     temp_max: number,
-//     pressure: number,
-//     humidity: number,
-//     sea_level: number,
-//     grnd_level: number,
-//   },
-// };
+type MainWeather = {
+  temp: number,
+  feels_like: number,
+  temp_min: number,
+  temp_max: number,
+  pressure: number,
+  humidity: number,
+  sea_level: number,
+  grnd_level: number,
+}
+
+type Weather = {
+  name: string,
+  main: MainWeather,
+};
+
+type WeatherForecast = {
+  main: MainWeather,
+  dt: number,
+
+}
 
 export default function HomeScreen() {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(undefined);
   const [errorMsg, setErrorMsg] = useState("");
-  const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState(null);
+  const [weather, setWeather] = useState<Weather>();
+  const [forecast, setForecast] = useState<WeatherForecast[]>();
 
   useEffect(() => {
     if (location) {
@@ -75,11 +83,9 @@ export default function HomeScreen() {
       `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
-    console.log(JSON.stringify(data, null, 2));
-    setForecast(data);
+     console.log(JSON.stringify(data, null, 2));
+    setForecast(data.list);
   };
-
-  //console.log(forecast);
 
   if (!weather) {
     return <ActivityIndicator />;
@@ -95,7 +101,7 @@ export default function HomeScreen() {
           horizontal
           renderItem={({ item }) => (
             <View style={styles.forecastContainer}>
-              <Text style={styles.forecastText}>{item.main}</Text>
+              <Text style={styles.forecastText}>{Math.floor(item.main.temp)}˚F</Text>
             </View>
           )}
           //keyExtractor={(item) => item.id}
@@ -126,6 +132,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   forecastContainer: {
-    height: 100,
+    height: 50,
+    marginRight: 5,
   },
 });
