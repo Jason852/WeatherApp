@@ -94,16 +94,18 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.location}>{weather.name}</Text>
-      <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
-      <View style={styles.forecastContainer}>
+      <View style={{flex: 1}}>
+        <Text style={styles.location}>{weather.name}</Text>
+        <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
+      </View>
+      
         <FlatList
           data={forecast}
           horizontal
-          contentContainerStyle={{gap: 10, backgroundColor: "blue", height: 100}}
+          style={{ backgroundColor: "red", flexGrow: 0, height: 150, margin: 10 }}
+          contentContainerStyle={{gap: 10}}
           renderItem={({ item }) => <ForecastItem forecast={item} />}          
         />
-      </View>
     </View>
   );
 }
@@ -125,8 +127,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "grey",
   },
-  forecastContainer: {
-    //height: 40,
-    marginHorizontal: 10,
-  },
+  // forecastContainer: {
+  //   //height: 40,
+  //   flex: 1,
+  //   marginHorizontal: 10,
+  // },
 });
