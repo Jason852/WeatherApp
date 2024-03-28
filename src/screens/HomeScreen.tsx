@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
@@ -93,8 +94,9 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{flex: 1}}>
+    <ImageBackground style={styles.container}>
+    
+      <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
         <Text style={styles.location}>{weather.name}</Text>
         <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
       </View>
@@ -102,11 +104,20 @@ export default function HomeScreen() {
         <FlatList
           data={forecast}
           horizontal
-          style={{ backgroundColor: "red", flexGrow: 0, height: 150, margin: 10 }}
-          contentContainerStyle={{gap: 10}}
+          showsHorizontalScrollIndicator={false}
+          style={{ 
+            flexGrow: 0, 
+            height: 200, 
+            marginBottom: 40 
+          }}
+          contentContainerStyle={{
+            gap: 10,
+            paddingHorizontal: 10,
+          }}
           renderItem={({ item }) => <ForecastItem forecast={item} />}          
         />
-    </View>
+     
+    </ImageBackground>
   );
 }
 

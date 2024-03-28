@@ -13,7 +13,7 @@ export default function App() {
           <Stack.Screen
             name="Home Screen"
             component={HomeScreen}
-           options={{ title: "HomeScreen" }}
+           options={{ title: "HomeScreen", headerShown: false }}
           />
        </Stack.Navigator>
       </NavigationContainer>
