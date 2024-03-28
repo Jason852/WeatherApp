@@ -7,6 +7,7 @@ import {
   ImageBackground
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import LottieView from "lottie-react-native";
 
 import * as Location from "expo-location";
 import ForecastItem from "../components/ForecastItem";
@@ -99,8 +100,10 @@ export default function HomeScreen() {
       <View style={{...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.4)'}}/>
     
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+        <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 100, aspectRatio: 1 }} loop autoPlay />
         <Text style={styles.location}>{weather.name}</Text>
         <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
+        
       </View>
       
         <FlatList
@@ -139,6 +142,6 @@ const styles = StyleSheet.create({
     // fontFamily: "Inter",
     fontSize: 120,
     fontWeight: "bold",
-    color: "white",
+    color: "#FEFEFE",
   },
 });
