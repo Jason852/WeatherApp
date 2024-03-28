@@ -13,6 +13,7 @@ import ForecastItem from "../components/ForecastItem";
 
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
+const bgImage = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg";
 
 type MainWeather = {
   temp: number,
@@ -80,9 +81,9 @@ export default function HomeScreen() {
       return;
     }
 
-    const numberOfDays = 40;
+    const numberOfForecasts = 40;
     const results = await fetch(
-      `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfDays}&appid=${OPEN_WEATHER_KEY}&units=imperial`
+      `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfForecasts}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
      console.log(JSON.stringify(data, null, 2));
@@ -94,7 +95,8 @@ export default function HomeScreen() {
   }
 
   return (
-    <ImageBackground style={styles.container}>
+    <ImageBackground source={{uri: bgImage}} style={styles.container}>
+      <View style={{...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.4)'}}/>
     
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
         <Text style={styles.location}>{weather.name}</Text>
@@ -131,16 +133,12 @@ const styles = StyleSheet.create({
   location: {
     // fontFamily: "Inter",
     fontSize: 30,
+    color: "lightgrey",
   },
   temp: {
     // fontFamily: "Inter",
     fontSize: 120,
     fontWeight: "bold",
-    color: "grey",
+    color: "white",
   },
-  // forecastContainer: {
-  //   //height: 40,
-  //   flex: 1,
-  //   marginHorizontal: 10,
-  // },
 });
