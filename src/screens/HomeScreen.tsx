@@ -11,10 +11,13 @@ import LottieView from "lottie-react-native";
 
 import * as Location from "expo-location";
 import ForecastItem from "../components/ForecastItem";
+import Animation from "../components/Animation";
 
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
 const bgImage = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg";
+
+
 
 type MainWeather = {
   temp: number;
@@ -82,7 +85,7 @@ export default function HomeScreen() {
     );
     const data = await results.json();
     console.log(JSON.stringify(data, null, 2));
-    console.log(weather?.weather[0].icon)
+    console.log(weather?.weather[0].icon);
     setWeather(data);
   };
 
@@ -91,7 +94,7 @@ export default function HomeScreen() {
       return;
     }
 
-    const numberOfForecasts = 40;
+    const numberOfForecasts = 30;
     const results = await fetch(
       `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfForecasts}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
@@ -106,11 +109,12 @@ export default function HomeScreen() {
 
 
   return (
-    <ImageBackground source={{uri: bgImage}} style={styles.container}>
+    <ImageBackground source={require("../images/bgImage.jpg")} style={styles.container}>
       <View style={{...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.4)'}}/>
     
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-        <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 200, aspectRatio: 1 }} loop autoPlay />
+        <Animation icon={weather?.weather[0].icon} />
+        {/* <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 200, aspectRatio: 1 }} loop autoPlay /> */}
         <Text style={styles.location}>{weather.name}</Text>
         <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
         
