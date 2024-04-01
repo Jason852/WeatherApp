@@ -17,20 +17,28 @@ const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
 const bgImage = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg";
 
 type MainWeather = {
-  temp: number,
-  feels_like: number,
-  temp_min: number,
-  temp_max: number,
-  pressure: number,
-  humidity: number,
-  sea_level: number,
-  grnd_level: number,
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+  sea_level: number;
+  grnd_level: number;
 }
 
 type Weather = {
-  name: string,
-  main: MainWeather,
-};
+  name: string;
+  main: MainWeather;
+  weather: [
+    {
+      id: string;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+}  
 
 export type WeatherForecast = {
   main: MainWeather,
@@ -73,7 +81,8 @@ export default function HomeScreen() {
       `${BASE_URL}/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
-    //console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
+    console.log(weather?.weather[0].icon)
     setWeather(data);
   };
 
@@ -87,7 +96,7 @@ export default function HomeScreen() {
       `${BASE_URL}/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&cnt=${numberOfForecasts}&appid=${OPEN_WEATHER_KEY}&units=imperial`
     );
     const data = await results.json();
-     console.log(JSON.stringify(data, null, 2));
+     //console.log(JSON.stringify(data, null, 2));
     setForecast(data.list);
   };
 
@@ -95,12 +104,13 @@ export default function HomeScreen() {
     return <ActivityIndicator />;
   }
 
+
   return (
     <ImageBackground source={{uri: bgImage}} style={styles.container}>
       <View style={{...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.4)'}}/>
     
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-        <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 100, aspectRatio: 1 }} loop autoPlay />
+        <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 200, aspectRatio: 1 }} loop autoPlay />
         <Text style={styles.location}>{weather.name}</Text>
         <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
         
