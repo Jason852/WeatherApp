@@ -15,9 +15,6 @@ import Animation from "../components/Animation";
 
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = "5edd63147368df5ac8a2b0e22f443d0c";
-const bgImage = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg";
-
-
 
 type MainWeather = {
   temp: number;
@@ -85,7 +82,7 @@ export default function HomeScreen() {
     );
     const data = await results.json();
     console.log(JSON.stringify(data, null, 2));
-    console.log(weather?.weather[0].icon);
+    //console.log(weather?.weather[0].icon);
     setWeather(data);
   };
 
