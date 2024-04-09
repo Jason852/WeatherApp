@@ -64,7 +64,11 @@ export default function HomeScreen() {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
-        return;
+        return(
+          <View style={{flex: 1, justifyContent: "center"}}>
+            <Text>{errorMsg}</Text>
+          </View>
+        );
       }
 
       let location = await Location.getCurrentPositionAsync({});

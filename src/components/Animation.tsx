@@ -19,20 +19,20 @@ export default function Animation({icon}) {
 
     // let selectedImage = animationSelection.filter((item) => item.id == icon).map(({id, animation}) => ({animation}));
 
-    var selectedImage = animationSelection.filter(item => {
+    var selectedImage = animationSelection.find(item => {
         return item.id === icon
-      });
+    });
 
 
         
-    console.log(selectedImage);
+    console.log(selectedImage?.animation);
 
 
     // const imageSelected = `../../assets/lottie/${iconPicker}.json`;
 
   return (
     <View>
-      <LottieView source={selectedImage} style={{ width: 200, aspectRatio: 1 }} loop autoPlay />
+      <LottieView source={selectedImage?.animation} style={{ width: 200, aspectRatio: 1 }} loop autoPlay />
     </View>
   )
 }
