@@ -115,9 +115,9 @@ export default function HomeScreen() {
     
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
         <Animation icon={weather?.weather[0].icon} />
-        {/* <LottieView source={require('../../assets/lottie/rain.json')} style={{ width: 200, aspectRatio: 1 }} loop autoPlay /> */}
         <Text style={styles.location}>{weather.name}</Text>
         <Text style={styles.temp}>{Math.floor(weather.main.temp)}˚F</Text>
+        <Text style={styles.description}>{weather.weather[0].description}</Text>
         
       </View>
       
@@ -159,4 +159,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FEFEFE",
   },
+  description: {
+    fontSize: 20,
+    color: "#fefefe",
+  }
 });

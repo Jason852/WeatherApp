@@ -17,15 +17,13 @@ export default function Animation({icon}) {
       
     console.log(iconPicker);
 
-    // let selectedImage = animationSelection.filter((item) => item.id == icon).map(({id, animation}) => ({animation}));
-
     var selectedImage = animationSelection.find(item => {
         return item.id === icon
     });
 
 
         
-    console.log(selectedImage?.animation);
+    //console.log(selectedImage?.animation);
 
 
     // const imageSelected = `../../assets/lottie/${iconPicker}.json`;
